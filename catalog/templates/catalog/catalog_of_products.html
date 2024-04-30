@@ -1,0 +1,31 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% load my_filters %}
+{% load my_tags %}
+
+
+{% block content %}
+
+{% for object in object_list %}
+<div class="col-4">
+    <div class="card">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal"> {{object}} </h4>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title pricing-card-title"> {{object.price}}$ </h1>
+            {% if object.images%}
+            <img src="{{ object.images|mymedia }}" class="card-img-top" alt="..." width="500" height="600">
+            {% else %}
+            <img src="{% static 'images/pepe.jpg' %}" alt="..." width="500" height="600">
+            {% endif %}
+            <p>{{ object.description|trim_to }}</p>
+            <p>{{ object.category }}</p>
+            <a href="{% url 'catalog:product_details' object.pk %}" class="btn btn-primary">К товару</a>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+    {% endblock %}
